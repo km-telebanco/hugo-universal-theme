@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="{{ .Site.LanguageCode }}">
-
   <head>
     {{ partial "headers.html" . }}
     {{ partial "custom_headers.html" . }}
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
   </head>
 
   <body>
 
-    <div id="all">
+    <div id="all" style="background-color: #2183B2;">
 
         {{ partial "top.html" . }}
 
@@ -16,15 +16,15 @@
 
         {{ partial "carousel.html" . }}
 
+        {{ partial "testimonials.html" . }}
+
         {{ partial "features.html" . }}
 
-        {{ partial "testimonials.html" . }}
+        {{ partial "clients.html" . }}
 
         {{ partial "see_more.html" . }}
 
         {{ partial "recent_posts.html" . }}
-
-        {{ partial "clients.html" . }}
 
         {{ partial "footer.html" . }}
 
@@ -34,4 +34,5 @@
     {{ partial "scripts.html" . }}
 
   </body>
+  
 </html>

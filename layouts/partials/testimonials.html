@@ -2,19 +2,34 @@
 {{ if .Site.Params.testimonials.enable }}
 {{ if isset .Site.Data "testimonials" }}
 {{ if gt (len .Site.Data.testimonials) 0 }}
+<div id="sectionTestimonials"></div>
+
 <section class="bar background-pentagon no-mb">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="heading text-center">
-                    <h2>{{ .Site.Params.testimonials.title }}</h2>
+    <div id="overlay"></div>
+    <div id="popupDialog" class="popup-dialog">
+        <span class="close" onclick="closePopupDialog()">&times;</span>
+            <div class="popup-content">
+                <p id="fullTextContent"></p>
+                <div class="name-picture">
+                    <b>
+                    <h5 id="nameContent"></h5>
+                    <p id="currentWorkContent"></p>
+                    <p id="previousWorkContent"></p>
+                    </b>
                 </div>
+            </div>
+    </div>
+    <div class="container" id="container-testimonials">
+        <div class="row">
+            <div class="dark-mask"></div>
+            <div class="col-md-12" style="margin: 80px 0px;">
+                <div class="heading-testimonials text-center fade-in title">
+                    <img class="testimonial-title" alt="" src="img/testimonials/title.png">
 
-                <p class="lead">
-                  {{ .Site.Params.testimonials.subtitle | markdownify }}
-                </p>
-
-                <!-- *** TESTIMONIALS CAROUSEL *** -->
+                    <p class="lead">
+                    {{ .Site.Params.testimonials.subtitle }}
+                    </p>
+                </div>
 
                 <ul class="owl-carousel testimonials same-height-row"
                     data-items="{{ default 4 .Site.Params.CarouselTestimonials.items }}"
@@ -25,29 +40,88 @@
                     <li class="item">
                         <div class="testimonial same-height-always">
                             <div class="text">
-                                <p>{{ .text | markdownify }}</p>
+                                <p>{{ .truncate }} 
+                                    <a onclick="showFullText('{{ .text }}', '{{ .name }}', 
+                                    '{{ .previouswork }}','{{ .currentwork }}')" 
+                                    style="cursor: pointer;">Read More</a>
+                                </p>
+                                
                             </div>
                             <div class="bottom">
-                                <div class="icon"><i class="fas fa-quote-left"></i>
-                                </div>
                                 <div class="name-picture">
-                                    <img class="" alt="" src="{{ .avatar | absURL }}">
-                                    <h5>{{ .name }}</h5>
-                                    <p>{{ .position }}</p>
+                                    <b>
+                                    <h5 id="name-title">{{ .name }}</h5>
+                                    <p>Current Work: {{ .currentwork }}</p>
+                                    <p>Previous Work: {{.previouswork}}</p>
+                                    </b>
                                 </div>
                             </div>
                         </div>
                     </li>
                     {{ end }}
                 </ul>
-                <!-- /.owl-carousel -->
-
-                <!-- *** TESTIMONIALS CAROUSEL END *** -->
             </div>
-
         </div>
     </div>
 </section>
+<script>
+     $(document).ready(function () {
+        function isElementInViewport(element) {
+            var rect = element.getBoundingClientRect();
+            return (
+                rect.top >= 0 &&
+                rect.left >= 0 &&
+                rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+                rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+            );
+        }
+
+        function handleScroll() {
+            $(".fade-in").each(function () {
+                var element = $(this);
+                if (isElementInViewport(element[0])) {
+                    element.addClass("visible");
+                } else {
+                    element.removeClass("visible");
+                }
+            });
+        }
+
+        $(window).on("scroll", handleScroll);
+        handleScroll(); 
+    });
+    function showFullText(fullText, name, previousWork, currentWork) {
+        var testimonialsSection = document.getElementById('container-testimonials');
+        testimonialsSection.classList.toggle('blur-background');
+    
+        var overlay = document.getElementById('overlay');
+        overlay.style.display = 'block';
+        overlay.style.pointerEvents = 'auto'; 
+    
+        var popupDialog = document.getElementById('popupDialog');
+        popupDialog.style.display = 'block';
+        popupDialog.style.pointerEvents = 'auto'; 
+    
+        document.getElementById('fullTextContent').innerHTML = fullText;
+        document.getElementById('nameContent').innerHTML = name;
+        document.getElementById('previousWorkContent').innerHTML = previousWork;
+        document.getElementById('currentWorkContent').innerHTML = currentWork;
+    }
+    
+    function closePopupDialog() {
+        var testimonialsSection = document.getElementById('container-testimonials');
+        testimonialsSection.classList.toggle('blur-background');
+    
+        var overlay = document.getElementById('overlay');
+        overlay.style.display = 'none';
+        overlay.style.pointerEvents = 'none'; 
+    
+        var popupDialog = document.getElementById('popupDialog');
+        popupDialog.style.display = 'none';
+        popupDialog.style.pointerEvents = 'none';
+    }
+    </script>
+    
 <!-- /.bar -->
 {{ end }}
 {{ end }}

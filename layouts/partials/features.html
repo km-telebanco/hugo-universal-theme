@@ -2,7 +2,12 @@
 {{ if .Site.Params.features.enable }}
 {{ if isset .Site.Data "features" }}
 {{ if gt (len .Site.Data.features) 0 }}
+<div id="sectionServices"></div>
+
 <section class="bar background-white">
+    <div class="heading text-center fade-in title">
+        <h2>Services</h2>
+    </div>
     <div class="container">
         {{ $elements := default 3 .Site.Params.features.cols }}
         {{ $features := sort .Site.Data.features "weight" }}
@@ -21,7 +26,7 @@
                 {{ if lt $feature_index (len $features) }}
                     {{ $element := index $features $feature_index }}
 
-                    <div class="col-md-{{ div 12 $elements }} col-{{ $j }} col-{{ if eq (mod $j 2) 0 }}odd{{ else }}even{{ end }}">
+                    <div class="col-md-{{ div 12 $elements }} col-{{ $j }} col-{{ if eq (mod $j 2) 0 }}odd{{ else }}even{{ end }} fade-in">
                         <div class="box-simple">
                             {{ with $element.url }}
                             <a href="{{ $element.url }}">
@@ -42,6 +47,36 @@
         {{ end }}
     </div>
 </section>
+
+<script>
+    $(document).ready(function () {
+        function isElementInViewport(element) {
+            var rect = element.getBoundingClientRect();
+            return (
+                rect.top >= 0 &&
+                rect.left >= 0 &&
+                rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+                rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+            );
+        }
+
+        function handleScroll() {
+            $(".fade-in").each(function () {
+                var element = $(this);
+                if (isElementInViewport(element[0])) {
+                    element.addClass("visible");
+                } else {
+                    element.removeClass("visible");
+                }
+            });
+        }
+
+        $(window).on("scroll", handleScroll);
+        handleScroll(); 
+    });
+</script>
+
+
 {{ end }}
 {{ end }}
 {{ end }}

@@ -1,25 +1,27 @@
 {{ if isset .Site.Params "see_more" }}
 {{ if .Site.Params.see_more.enable }}
+<div id="sectionAbout"></div>
 <section class="bar background-image-fixed-2 no-mb color-white text-center">
     <div class="dark-mask"></div>
     <div class="container">
         <div class="row">
-            <div class="col-md-12">
-                <div class="icon icon-lg"><i class="{{ .Site.Params.see_more.icon }}"></i>
-                </div>
-                <h3 class="text-uppercase">{{ .Site.Params.see_more.title | markdownify }}</h3>
-                <p class="lead">{{ .Site.Params.see_more.subtitle | markdownify }}</p>
-                <p class="text-center">
-                    {{ with .Site.Params.see_more.link_url }}
-                    <a href="{{ . }}" class="btn btn-template-transparent-black btn-lg">
-                    {{ end }}
-                        {{ with .Site.Params.see_more.link_text }}
-                        {{ . | markdownify }}
-                        {{ end }}
-                    {{ with .Site.Params.see_more.link_url }}
-                    </a>
-                    {{ end }}
-                </p>
+            <div class="col-md-12" style="color: #e78a33; text-align: center; margin-top: 50px;">
+                <h3 class="text-uppercase" style="color: white; margin-left: 30px; border-bottom: solid 5px #DB8D45; padding: 10px;">About Us</h3>
+                <p class="lead" style="color: white; text-align: justify;">SharpIT Training & Technology Solutions is a startup company in the Philippines. We are located in Cebu City, one of the technology hubs in the country.
+                    Quality software does not happen by chance but is a product of skilled software engineers. Thus, we advocate Software Engineering and its practices. 
+                    Our mission is to develop effective and efficient Software Engineering leaders. We provide a nurturing atmosphere to our trainees and to any team we work with. Our hands-on approach ensures that theories are applied appropriately and in a practical way.
+                    We deliver what we promise and are proud of our integrity in every possible endeavor.
+                    </p>
+            </div>
+            <div class="col-md-12" style="color: #e78a33; text-align: center;">
+                <h3 class="text-uppercase" style="color: white; margin-left: 30px; border-bottom: solid 5px #DB8D45; padding: 10px;">Reach Out</h3>
+                <p class="lead" style="color: white; text-align: center;">Cebu City, Cebu, Philippines
+                    <br/>+63-999-999
+                    <br/><a style="color: #f5be8a; text-decoration: underline;" href="https://github.com/sharpitapp/">https://github.com/sharpitapp/</a>
+                    <br/><br/>
+                    Contact us on support@sharpit.app.
+                    
+                    </p>
             </div>
         </div>
     </div>
